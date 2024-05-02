@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    restart: always
+  db:
+    image: "postgres:12-alpine"
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=test1234
+      - POSTGRES_USER=exampleuser
+    expose:
+      - 8080:8080
+    volumes:
+      -
