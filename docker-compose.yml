@@ -11,5 +11,13 @@ services:
       - POSTGRES_USER=exampleuser
     expose:
       - 8080:8080
+    # volumes:
+    #   -
+  sqlc:
+    image: kjconroy/sqlc
     volumes:
-      -
+      - .:/src
+    working_dir: /src
+    command: ["sqlc", "generate"]
+    depends_on:
+      - db
