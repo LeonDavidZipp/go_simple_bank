@@ -8,3 +8,5 @@ RUN curl -L https://packagecloud.io/golang-migrate/migrate/gpgkey | apt-key add 
 # go introduction
 RUN go install golang.org/x/website/tour@latest #go introduction
 
+ENV dbDriver="postgres"
+ENV dbSource="postgresql://root:secret@localhost:8080/simple_bank?sslmode=disable"
