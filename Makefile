@@ -10,4 +10,8 @@ dropdb:
 sqlc:
 	sqlc generate
 
+# A tour about the syntax of go
+tour:
+	tour
+
 .PHONY: startapp createdb dropdb sqlc
