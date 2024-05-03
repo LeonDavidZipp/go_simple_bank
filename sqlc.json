@@ -4,7 +4,7 @@
       {
         "name": "db",
         "path": "db/sqlc",
-        "queries": "db/queries",
+        "queries": "db/query",
         "schema": "db/migrations",
         "engine": "postgresql",
         "emit_json_tags": true,
