@@ -6,7 +6,7 @@ RUN curl -L https://packagecloud.io/golang-migrate/migrate/gpgkey | apt-key add 
     && apt-get install -y migrate \
     && go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
 # go introduction
-RUN go install golang.org/x/website/tour@latest #go introduction
+RUN go install golang.org/x/website/tour@latest
 # enable docker-compose
 RUN --mount=type=bind,target=/var/run/docker.sock,source=/var/run/docker.sock \
     docker-compose -v
