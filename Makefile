@@ -7,6 +7,9 @@ createdb:
 dropdb:
 	docker-compose exec db dropdb -U exampleuser simple_bank
 
+startdb:
+	docker-compose up db
+
 sqlc:
 	sqlc generate
 

@@ -7,6 +7,9 @@ RUN curl -L https://packagecloud.io/golang-migrate/migrate/gpgkey | apt-key add 
     && go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
 # go introduction
 RUN go install golang.org/x/website/tour@latest #go introduction
+# enable docker-compose
+RUN --mount=type=bind,target=/var/run/docker.sock,source=/var/run/docker.sock \
+    docker-compose -v
 
 ENV dbDriver="postgres"
 ENV dbSource="postgresql://root:secret@localhost:8080/simple_bank?sslmode=disable"
