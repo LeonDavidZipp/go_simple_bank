@@ -25,7 +25,9 @@
                 "ms-vscode-remote.remote-containers",
                 "golang.go",
                 "joaoacdias.golang-tdd",
-                "formulahendry.code-runner"
+                "formulahendry.code-runner",
+                "usernamehw.errorlens",
+                "premparihar.gotestexplorer"
             ]
         }
     },
