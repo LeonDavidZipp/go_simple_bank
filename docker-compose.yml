@@ -13,6 +13,8 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    volumes: # remove after testing
+      - .:/app
   db:
     image: "postgres:16.2-alpine3.19"
     restart: always
