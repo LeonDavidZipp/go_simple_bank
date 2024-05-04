@@ -13,6 +13,9 @@ createdb:
 migrateup:
 	docker-compose run --rm app migrate -path ./db/migrations -database "postgresql://exampleuser:test1234@db:5432/simple_bank?sslmode=disable" -verbose up
 
+migratedown:
+	docker-compose run --rm app migrate -path ./db/migrations -database "postgresql://exampleuser:test1234@db:5432/simple_bank?sslmode=disable" -verbose down
+
 dropdb:
 	docker-compose exec db dropdb -U exampleuser simple_bank
 
@@ -26,4 +29,4 @@ test:
 tour:
 	tour
 
-.PHONY: startapp createdb dropdb sqlc
+.PHONY: start startapp startdb createdb migrateup migratedown dropdb sqlc test tour
