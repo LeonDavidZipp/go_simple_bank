@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 	"time"
+	"database/sql"
 	"github.com/stretchr/testify/require"
 	"github.com/LeonDavidZipp/go_simple_bank/util"
-
 )
 
 
@@ -49,4 +49,39 @@ func TestGetAccount(t *testing.T) {
 	require.Equal(t, user1.Currency, user2.Currency)
 
 	require.WithinDuration(t, user1.CreatedAt, user2.CreatedAt, time.Second)
+}
+
+func TestUpdateAccount(t *testing.T) {
+	user1 := CreateRandomAccount(t)
+
+	arg := UpdateAccountParams{
+		ID: user1.ID,
+		Balance: util.RandomBalance(),
+	}
+
+	user2, err := testQueries.UpdateAccount(context.Background(), arg)
+
+	require.NoError(t, err)
+	require.NotEmpty(t, user2)
+
+	require.Equal(t, user1.ID, user2.ID)
+	require.Equal(t, user1.Owner, user2.Owner)
+	require.Equal(t, arg.Balance, user2.Balance)
+	require.Equal(t, user1.Currency, user2.Currency)
+
+	require.WithinDuration(t, user1.CreatedAt, user2.CreatedAt, time.Second)
+}
+
+func TestDeleteAccount(t *testing.T) {
+	user1 := CreateRandomAccount(t)
+
+	err := testQueries.DeleteAccount(context.Background(), user1.ID)
+
+	require.NoError(t, err)
+
+	user2, err := testQueries.GetAccount(context.Background(), user1.ID)
+
+	require.Error(t, err)
+	require.EqualError(t, err, sql.ErrNoRows.Error())
+	require.Empty(t, user2)
 }
