@@ -21,6 +21,7 @@ sqlc:
 
 test:
 	docker-compose run --rm app sh -c "go test -v -cover ./..."
+
 # A tour about the syntax of go
 tour:
 	tour
