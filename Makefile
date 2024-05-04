@@ -19,9 +19,8 @@ dropdb:
 sqlc:
 	docker-compose run --rm app sh -c "sqlc generate"
 
-testaccount:
-	docker-compose run --rm app sh -c "go test ./db/sqlc -run TestCreateAccount"
-
+test:
+	docker-compose run --rm app sh -c "go test -v -cover ./..."
 # A tour about the syntax of go
 tour:
 	tour
