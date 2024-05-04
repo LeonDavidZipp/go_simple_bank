@@ -37,3 +37,11 @@ func RandomBalance() int64 {
 func RandomCurrency() string {
 	return [3]string{"USD", "EUR", "CAD"}[int(RandomInt(0, 2))]
 }
+
+func RandomAmount() int64 {
+	return RandomInt(0, 50000)
+}
+
+func RandomID() int64 {
+	return RandomInt(0, 50000)
+}
