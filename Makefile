@@ -16,6 +16,8 @@ migrateup:
 migratedown:
 	docker-compose run --rm app migrate -path ./db/migrations -database "postgresql://exampleuser:test1234@db:5432/simple_bank?sslmode=disable" -verbose down
 
+restartdb: dropdb createdb migrateup
+
 dropdb:
 	docker-compose exec db dropdb -U exampleuser simple_bank
 
