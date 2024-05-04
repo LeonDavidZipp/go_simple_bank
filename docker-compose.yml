@@ -1,8 +1,18 @@
-version: "3.8"
 services:
   app:
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: dev # target stage to build, CHANGE to prod for production
+      args:
+        - DEV=true
     restart: always
+    expose:
+      - 8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
   db:
     image: "postgres:16.2-alpine3.19"
     restart: always

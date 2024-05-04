@@ -1,4 +1,4 @@
-CREATE TYPE "Currency" AS ENUM (
+CREATE TYPE currency AS ENUM (
   'USD',
   'EUR'
 );
@@ -7,7 +7,7 @@ CREATE TABLE "accounts" (
   "id" bigserial PRIMARY KEY,
   "owner" varchar NOT NULL,
   "balance" bigint NOT NULL,
-  "currency" Currency NOT NULL,
+  "currency" currency NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now()),
   "country_code" int
 );

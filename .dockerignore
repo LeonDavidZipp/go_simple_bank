@@ -1,4 +1,3 @@
 *.pdf
-*.mod
-*.sum
 *.md
+.devcontainer
