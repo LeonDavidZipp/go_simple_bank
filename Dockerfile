@@ -9,7 +9,6 @@ FROM golang:1.22.2-alpine3.19 as base
 LABEL maintainer="lzipp"
 
 WORKDIR /app
-# COPY ./app ./db ./go.mod ./go.sum ./
 COPY ./app ./app
 COPY ./db ./db
 COPY ./go.mod ./
@@ -30,7 +29,6 @@ EXPOSE 8000
 FROM base as dev
 
 ENV dbDriver="postgres"
-# ENV dbSource="postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable"
 ENV dbSource="postgresql://exampleuser:test1234@db:5432/simple_bank?sslmode=disable"
 
 COPY ./sqlc.json ./
