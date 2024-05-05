@@ -3,15 +3,12 @@ package db
 import (
 	"context"
 	"testing"
-	// "time"
+	"time"
 	"github.com/stretchr/testify/require"
 	"github.com/LeonDavidZipp/go_simple_bank/util"
 )
 
-func CreateRandomTransfer(t *testing.T) Transfer {
-	sender := CreateRandomAccount(t)
-	receiver := CreateRandomAccount(t)
-
+func CreateRandomTransfer(t *testing.T, sender Account, receiver Account) Transfer {
 	arg := CreateTransferParams{
 		FromAccountID : sender.ID,
 		ToAccountID : receiver.ID,
@@ -34,5 +31,38 @@ func CreateRandomTransfer(t *testing.T) Transfer {
 }
 
 func TestCreateTransfer(t *testing.T) {
-	CreateRandomTransfer()
+	sender := CreateRandomAccount(t)
+	receiver := CreateRandomAccount(t)
+	CreateRandomTransfer(t, sender, receiver)
+}
+
+func TestGetTransfer(t *testing.T) {
+	transfer1 := CreateRandomTransfer(t)
+	transfer2, err := testQueries.GetTransfer(context.Background(), transfer1.ID)
+
+	require.NoError(t, err)
+	require.NotEmpty(t, transfer2)
+
+	require.Equal(t, transfer1.ID, transfer2.ID)
+	require.Equal(t, transfer1.FromAccountID, transfer2.FromAccountID)
+	require.Equal(t, transfer1.ToAccountID, transfer2.ToAccountID)
+	require.Equal(t, transfer1.Amount, transfer2.Amount)
+
+	require.WithinDuration(t, transfer1.CreatedAt, transfer2.CreatedAt, time.Second)
+
+}
+
+func TestListTransfers(t *testing.T) {
+	sender := CreateRandomAccount(t)
+	for i := 0; i < 5; i++ {
+		receiver := CreateRandomAccount(t)
+		CreateRandomTransfer(t, sender, receiver)
+
+		arg := ListTransfersParams{
+			FromAccountID : sender.ID,
+			ToAccountID : receiver.ID,
+			Limit : 5,
+			Offset : 0,
+		}
+	}
 }
