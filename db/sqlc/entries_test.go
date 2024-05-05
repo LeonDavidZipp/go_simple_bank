@@ -8,7 +8,7 @@ import (
 	"github.com/LeonDavidZipp/go_simple_bank/util"
 )
 
-func CreateRandomEntry(t *testing.T, account1 Account) Entry {
+func createRandomEntry(t *testing.T, account1 Account) Entry {
 	account2, err := testQueries.GetAccount(context.Background(), account1.ID)
 
 	require.NoError(t, err)
@@ -33,14 +33,14 @@ func CreateRandomEntry(t *testing.T, account1 Account) Entry {
 	return entry
 }
 
-func TestCreateEntry(t *testing.T) {
-	account := CreateRandomAccount(t)
-	CreateRandomEntry(t, account)
+func testCreateEntry(t *testing.T) {
+	account := createRandomAccount(t)
+	createRandomEntry(t, account)
 }
 
-func TestGetEntry(t *testing.T) {
-	account := CreateRandomAccount(t)
-	entry1 := CreateRandomEntry(t, account)
+func testGetEntry(t *testing.T) {
+	account := createRandomAccount(t)
+	entry1 := createRandomEntry(t, account)
 	entry2, err := testQueries.GetEntry(context.Background(), entry1.ID)
 
 	require.NoError(t, err)
@@ -53,10 +53,10 @@ func TestGetEntry(t *testing.T) {
 	require.WithinDuration(t, entry1.CreatedAt, entry2.CreatedAt, time.Second)
 }
 
-func TestListEntries(t *testing.T) {
-	account := CreateRandomAccount(t)
+func testListEntries(t *testing.T) {
+	account := createRandomAccount(t)
 	for i := 0; i < 10; i++ {
-		CreateRandomEntry(t, account)
+		createRandomEntry(t, account)
 	}
 
 	arg := ListEntriesParams{

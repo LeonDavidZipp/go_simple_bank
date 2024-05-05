@@ -9,15 +9,17 @@ import (
 )
 
 var testQueries *Queries
+var testDB *sql.DB
 
 func TestMain(m *testing.M) {
-	conn, err := sql.Open(
+	var err error
+	testDB, err = sql.Open(
 		os.Getenv("dbDriver"),
 		os.Getenv("dbSource"),
 	)
 	if err != nil {
 		log.Fatal("Cannot connect to db:", err)
 	}
-	testQueries = New(conn)
+	testQueries = New(testDB)
 	os.Exit(m.Run())
 }

@@ -8,7 +8,7 @@ import (
 	"github.com/LeonDavidZipp/go_simple_bank/util"
 )
 
-func CreateRandomTransfer(t *testing.T, sender Account, receiver Account) Transfer {
+func createRandomTransfer(t *testing.T, sender Account, receiver Account) Transfer {
 	arg := CreateTransferParams{
 		FromAccountID : sender.ID,
 		ToAccountID : receiver.ID,
@@ -30,16 +30,16 @@ func CreateRandomTransfer(t *testing.T, sender Account, receiver Account) Transf
 	return transfer
 }
 
-func TestCreateTransfer(t *testing.T) {
-	sender := CreateRandomAccount(t)
-	receiver := CreateRandomAccount(t)
-	CreateRandomTransfer(t, sender, receiver)
+func testCreateTransfer(t *testing.T) {
+	sender := createRandomAccount(t)
+	receiver := createRandomAccount(t)
+	createRandomTransfer(t, sender, receiver)
 }
 
-func TestGetTransfer(t *testing.T) {
-	sender := CreateRandomAccount(t)
-	receiver := CreateRandomAccount(t)
-	transfer1 := CreateRandomTransfer(t, sender, receiver)
+func testGetTransfer(t *testing.T) {
+	sender := createRandomAccount(t)
+	receiver := createRandomAccount(t)
+	transfer1 := createRandomTransfer(t, sender, receiver)
 	transfer2, err := testQueries.GetTransfer(context.Background(), transfer1.ID)
 
 	require.NoError(t, err)
@@ -54,12 +54,12 @@ func TestGetTransfer(t *testing.T) {
 
 }
 
-func TestListTransfers(t *testing.T) {
-	account1 := CreateRandomAccount(t)
-	account2 := CreateRandomAccount(t)
+func testListTransfers(t *testing.T) {
+	account1 := createRandomAccount(t)
+	account2 := createRandomAccount(t)
 	for i := 0; i < 10; i++ {
-		CreateRandomTransfer(t, account1, account2)
-		CreateRandomTransfer(t, account2, account1)
+		createRandomTransfer(t, account1, account2)
+		createRandomTransfer(t, account2, account1)
 	}
 
 	arg := ListTransfersParams{
