@@ -7,7 +7,7 @@ import (
 	// "github.com/LeonDavidZipp/go_simple_bank/util"
 )
 
-func testTransferTx(t *testing.T) {
+func TestTransferTx(t *testing.T) {
 	store := NewStore(testDB)
 	account1 := createRandomAccount(t)
 	account2 := createRandomAccount(t)
@@ -58,7 +58,7 @@ func testTransferTx(t *testing.T) {
 		_, err = store.GetEntry(context.Background(), fromEntry.ID)
 		require.NoError(t, err)
 
-		toEntry := result.FromEntry
+		toEntry := result.ToEntry
 		require.NotEmpty(t, toEntry)
 		require.Equal(t, account2.ID, toEntry.AccountID)
 		require.Equal(t, amount, toEntry.Amount)

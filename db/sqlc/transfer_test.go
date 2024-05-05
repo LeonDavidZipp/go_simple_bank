@@ -30,13 +30,13 @@ func createRandomTransfer(t *testing.T, sender Account, receiver Account) Transf
 	return transfer
 }
 
-func testCreateTransfer(t *testing.T) {
+func TestCreateTransfer(t *testing.T) {
 	sender := createRandomAccount(t)
 	receiver := createRandomAccount(t)
 	createRandomTransfer(t, sender, receiver)
 }
 
-func testGetTransfer(t *testing.T) {
+func TestGetTransfer(t *testing.T) {
 	sender := createRandomAccount(t)
 	receiver := createRandomAccount(t)
 	transfer1 := createRandomTransfer(t, sender, receiver)
@@ -54,7 +54,7 @@ func testGetTransfer(t *testing.T) {
 
 }
 
-func testListTransfers(t *testing.T) {
+func TestListTransfers(t *testing.T) {
 	account1 := createRandomAccount(t)
 	account2 := createRandomAccount(t)
 	for i := 0; i < 10; i++ {
