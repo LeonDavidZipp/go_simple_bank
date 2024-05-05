@@ -3,9 +3,8 @@ package db
 import (
 	"context"
 	"testing"
-	"time"
 	"github.com/stretchr/testify/require"
-	"github.com/LeonDavidZipp/go_simple_bank/util"
+	// "github.com/LeonDavidZipp/go_simple_bank/util"
 )
 
 func testTransferTx(t *testing.T) {
@@ -13,8 +12,8 @@ func testTransferTx(t *testing.T) {
 	account1 := createRandomAccount(t)
 	account2 := createRandomAccount(t)
 
-	var n int32 = 5
-	var amount int32 = 10
+	n := 5
+	var amount int64 = 10
 
 	errs := make(chan error)
 	results := make(chan TransferTxResult)
@@ -29,7 +28,7 @@ func testTransferTx(t *testing.T) {
 
 			errs <- err
 			results <- result
-		}
+		}()
 	}
 	for i := 0; i < n; i++ {
 		err := <- errs
@@ -44,9 +43,9 @@ func testTransferTx(t *testing.T) {
 		require.Equal(t, account2.ID, transfer.ToAccountID)
 		require.Equal(t, amount, transfer.Amount)
 		require.NotZero(t, transfer.ID)
-		require.NotZero(t, transfer.CreatetAt)
+		require.NotZero(t, transfer.CreatedAt)
 
-		_, err := store.GetTransfer(context.Background(), transfer.ID)
+		_, err = store.GetTransfer(context.Background(), transfer.ID)
 		require.NoError(t, err)
 
 		fromEntry := result.FromEntry
@@ -56,7 +55,7 @@ func testTransferTx(t *testing.T) {
 		require.NotZero(t, fromEntry.ID)
 		require.NotZero(t, fromEntry.CreatedAt)
 
-		_, err := store.GetEntry(context.Background(), fromEntry.ID)
+		_, err = store.GetEntry(context.Background(), fromEntry.ID)
 		require.NoError(t, err)
 
 		toEntry := result.FromEntry
@@ -66,7 +65,7 @@ func testTransferTx(t *testing.T) {
 		require.NotZero(t, toEntry.ID)
 		require.NotZero(t, toEntry.CreatedAt)
 
-		_, err := store.GetEntry(context.Background(), toEntry.ID)
+		_, err = store.GetEntry(context.Background(), toEntry.ID)
 		require.NoError(t, err)
 
 		// TODO: check accounts balance 
