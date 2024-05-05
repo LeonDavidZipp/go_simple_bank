@@ -37,7 +37,9 @@ func TestCreateTransfer(t *testing.T) {
 }
 
 func TestGetTransfer(t *testing.T) {
-	transfer1 := CreateRandomTransfer(t)
+	sender := CreateRandomAccount(t)
+	receiver := CreateRandomAccount(t)
+	transfer1 := CreateRandomTransfer(t, sender, receiver)
 	transfer2, err := testQueries.GetTransfer(context.Background(), transfer1.ID)
 
 	require.NoError(t, err)
@@ -67,7 +69,7 @@ func TestListTransfers(t *testing.T) {
 		Offset : 0,
 	}
 
-	transfers, err := testQueries.ListTransfers(context.Background(), account1.ID)
+	transfers, err := testQueries.ListTransfers(context.Background(), arg)
 
 	require.NoError(t, err)
 	require.Len(t, transfers, 5)
