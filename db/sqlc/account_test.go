@@ -37,53 +37,53 @@ func TestCreateAccount(t *testing.T) {
 }
 
 func TestGetAccount(t *testing.T) {
-	user1 := CreateRandomAccount(t)
-	user2, err := testQueries.GetAccount(context.Background(), user1.ID)
+	account1 := CreateRandomAccount(t)
+	account2, err := testQueries.GetAccount(context.Background(), account1.ID)
 
 	require.NoError(t, err)
-	require.NotEmpty(t, user2)
+	require.NotEmpty(t, account2)
 
-	require.Equal(t, user1.ID, user2.ID)
-	require.Equal(t, user1.Owner, user2.Owner)
-	require.Equal(t, user1.Balance, user2.Balance)
-	require.Equal(t, user1.Currency, user2.Currency)
+	require.Equal(t, account1.ID, account2.ID)
+	require.Equal(t, account1.Owner, account2.Owner)
+	require.Equal(t, account1.Balance, account2.Balance)
+	require.Equal(t, account1.Currency, account2.Currency)
 
-	require.WithinDuration(t, user1.CreatedAt, user2.CreatedAt, time.Second)
+	require.WithinDuration(t, account1.CreatedAt, account2.CreatedAt, time.Second)
 }
 
 func TestUpdateAccount(t *testing.T) {
-	user1 := CreateRandomAccount(t)
+	account1 := CreateRandomAccount(t)
 
 	arg := UpdateAccountParams{
-		ID: user1.ID,
+		ID: account1.ID,
 		Balance: util.RandomBalance(),
 	}
 
-	user2, err := testQueries.UpdateAccount(context.Background(), arg)
+	account2, err := testQueries.UpdateAccount(context.Background(), arg)
 
 	require.NoError(t, err)
-	require.NotEmpty(t, user2)
+	require.NotEmpty(t, account2)
 
-	require.Equal(t, user1.ID, user2.ID)
-	require.Equal(t, user1.Owner, user2.Owner)
-	require.Equal(t, arg.Balance, user2.Balance)
-	require.Equal(t, user1.Currency, user2.Currency)
+	require.Equal(t, account1.ID, account2.ID)
+	require.Equal(t, account1.Owner, account2.Owner)
+	require.Equal(t, arg.Balance, account2.Balance)
+	require.Equal(t, account1.Currency, account2.Currency)
 
-	require.WithinDuration(t, user1.CreatedAt, user2.CreatedAt, time.Second)
+	require.WithinDuration(t, account1.CreatedAt, account2.CreatedAt, time.Second)
 }
 
 func TestDeleteAccount(t *testing.T) {
-	user1 := CreateRandomAccount(t)
+	account1 := CreateRandomAccount(t)
 
-	err := testQueries.DeleteAccount(context.Background(), user1.ID)
+	err := testQueries.DeleteAccount(context.Background(), account1.ID)
 
 	require.NoError(t, err)
 
-	user2, err := testQueries.GetAccount(context.Background(), user1.ID)
+	account2, err := testQueries.GetAccount(context.Background(), account1.ID)
 
 	require.Error(t, err)
 	require.EqualError(t, err, sql.ErrNoRows.Error())
-	require.Empty(t, user2)
+	require.Empty(t, account2)
 }
 
 func TestListAccounts(t *testing.T) {

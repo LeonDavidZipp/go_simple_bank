@@ -41,7 +41,3 @@ func RandomCurrency() string {
 func RandomAmount() int64 {
 	return RandomInt(0, 50000)
 }
-
-func RandomID() int64 {
-	return RandomInt(0, 50000)
-}
