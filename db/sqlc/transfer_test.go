@@ -53,16 +53,26 @@ func TestGetTransfer(t *testing.T) {
 }
 
 func TestListTransfers(t *testing.T) {
-	sender := CreateRandomAccount(t)
-	for i := 0; i < 5; i++ {
-		receiver := CreateRandomAccount(t)
-		CreateRandomTransfer(t, sender, receiver)
+	account1 := CreateRandomAccount(t)
+	account2 := CreateRandomAccount(t)
+	for i := 0; i < 10; i++ {
+		CreateRandomTransfer(t, account1, account2)
+		CreateRandomTransfer(t, account2, account1)
+	}
 
-		arg := ListTransfersParams{
-			FromAccountID : sender.ID,
-			ToAccountID : receiver.ID,
-			Limit : 5,
-			Offset : 0,
-		}
+	arg := ListTransfersParams{
+		FromAccountID : account1.ID,
+		ToAccountID : account1.ID,
+		Limit : 5,
+		Offset : 0,
+	}
+
+	transfers, err := testQueries.ListTransfers(context.Background(), account1.ID)
+
+	require.NoError(t, err)
+	require.Len(t, transfers, 5)
+
+	for _, transfer := range transfers {
+		require.NotEmpty(t, transfer)
 	}
 }
