@@ -32,6 +32,15 @@ sqlc:
 test:
 	docker-compose run --rm app sh -c "go test -v -cover ./..."
 
+get:
+	docker-compose run --rm app go get -u $(pkg)
+
+imagebuild:
+	docker-compose build
+
+imagerebuild:
+	docker-compose build --no-cache
+
 # A tour about the syntax of go
 tour:
 	tour
