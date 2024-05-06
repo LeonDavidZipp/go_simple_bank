@@ -5,7 +5,9 @@ startapp:
 	docker-compose up app
 
 startdb:
-	docker-compose up db
+	docker-compose up db \
+	&& make createdb \
+	&& make migrateup
 
 createdb:
 	docker-compose exec db createdb -U exampleuser simple_bank

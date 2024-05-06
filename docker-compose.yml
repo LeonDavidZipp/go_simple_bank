@@ -4,8 +4,6 @@ services:
       context: .
       dockerfile: Dockerfile
       target: dev # target stage to build, CHANGE to prod for production
-      args:
-        - DEV=true
     restart: always
     expose:
       - 8000

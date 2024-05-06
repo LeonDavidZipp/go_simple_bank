@@ -69,6 +69,8 @@ func TestTransferTx(t *testing.T) {
 		require.NoError(t, err)
 
 		// TODO: check accounts balance 
-
+		fromAccount := result.FromAccount
+		require.NotEmpty(t, fromAccount)
+		require
 	}
 }
