@@ -1,4 +1,4 @@
-start:
+trastart:
 	docker-compose up
 
 startapp:
