@@ -2,9 +2,9 @@ name: Run unit tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ 1-database ]
   pull_request:
-    branches: [ main ]
+    branches: [ 1-database ]
 
 jobs:
 
