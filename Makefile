@@ -23,6 +23,9 @@ restartdb: dropdb createdb migrateup
 dropdb:
 	docker-compose exec db dropdb -U exampleuser simple_bank
 
+runcmd:
+	docker-compose exec db psql -U exampleuser -d simple_bank -c "$(cmd)"
+
 sqlc:
 	docker-compose run --rm app sh -c "sqlc generate"
 
