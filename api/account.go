@@ -1,8 +1,9 @@
 package api
 
 import (
+	"net/http"
 	"github.com/gin-gonic/gin"
-	db "github.com/leondavidzipp/simple_bank/db/sqlc"
+	db "github.com/LeonDavidZipp/go_simple_bank/db/sqlc"
 )
 
 
@@ -14,8 +15,11 @@ type createAccountRequest struct {
 func (server *Server) createAccount(ctx *gin.Context) {
 	var req createAccountRequest
 
-	if err := ctx.ShouldBindJson(&req); err != nil {
-		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+	if err := ctx.ShouldBindJSON(&req); err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			errorResponse(err),
+		)
 		return 
 	}
 
@@ -28,9 +32,13 @@ func (server *Server) createAccount(ctx *gin.Context) {
 	account, err := server.store.CreateAccount(ctx, arg)
 	if err != nil {
 		ctx.JSON(
-			http.StatusInternelServerError, errorResponse(err)
+			http.StatusInternalServerError,
+			errorResponse(err),
 		)
 	}
 
-	ctx.JSON(http.StatusOK, account)
+	ctx.JSON(
+		http.StatusOK,
+		account,
+	)
 }

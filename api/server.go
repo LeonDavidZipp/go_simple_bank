@@ -2,7 +2,7 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	db "github.com/leondavidzipp/simple_bank/db/sqlc"
+	db "github.com/LeonDavidZipp/go_simple_bank/db/sqlc"
 )
 
 
@@ -15,7 +15,7 @@ type Server struct {
 // creates new server instance
 func NewServer(store *db.Store) *Server {
 	server := &Server{
-		store : store
+		store : store,
 	}
 
 	router := gin.Default()

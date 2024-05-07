@@ -2,11 +2,12 @@ package main
 
 import (
 	"os"
+	"log"
 	"database/sql"
 
 	_ "github.com/lib/pq"
-	"github.com/leondavidzipp/go_simple_bank/api"
-	db "github.com/leondavidzipp/go_simple_bank/db/sqlc"
+	"github.com/LeonDavidZipp/go_simple_bank/api"
+	db "github.com/LeonDavidZipp/go_simple_bank/db/sqlc"
 )
 
 func main() {
@@ -18,10 +19,10 @@ func main() {
 		log.Fatal("Cannot connect to db:", err)
 	}
 
-	var store *Store = db.NewStore(conn)
-	var server *Server = api.NewServer(store)
+	store := db.NewStore(conn)
+	server := api.NewServer(store)
 
-	err = server.start(os.GetEnv("serverAddress"))
+	err = server.Start(os.Getenv("serverAddress"))
 	if err != nil {
 		log.Fatal("Cannot start server: ", err)
 	}
