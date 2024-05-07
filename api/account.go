@@ -1,6 +1,7 @@
 package api
 
 import (
+	"database/sql"
 	"net/http"
 	"github.com/gin-gonic/gin"
 	db "github.com/LeonDavidZipp/go_simple_bank/db/sqlc"
