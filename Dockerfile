@@ -10,13 +10,14 @@ LABEL maintainer="lzipp"
 
 WORKDIR /app
 COPY ./db ./db
+COPY ./api ./api
 COPY ./go.mod ./
 COPY ./go.sum ./
 RUN go mod download
 
 RUN go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 
-EXPOSE 8000
+EXPOSE 8080
 
 
 ########################################################################################

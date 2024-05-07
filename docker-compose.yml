@@ -6,9 +6,9 @@ services:
       target: dev # target stage to build, CHANGE to prod for production
     restart: always
     expose:
-      - 8000
+      - 8080
     ports:
-      - "8000:8000"
+      - "8080:8080"
     depends_on:
       - db
     volumes: # remove after testing
