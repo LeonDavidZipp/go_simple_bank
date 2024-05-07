@@ -5,8 +5,8 @@ import (
 	"database/sql"
 
 	_ "github.com/lib/pq"
-	"github.com/leondavidzipp/simple_bank/api"
-	db "github.com/leondavidzipp/simple_bank/db/sqlc"
+	"github.com/leondavidzipp/go_simple_bank/api"
+	db "github.com/leondavidzipp/go_simple_bank/db/sqlc"
 )
 
 func main() {
