@@ -41,8 +41,11 @@ imagebuild:
 imagerebuild:
 	docker-compose build --no-cache
 
+server:
+	docker-compose run --rm app sh -c"go run main.go"
+
 # A tour about the syntax of go
 tour:
 	tour
 
-.PHONY: start startapp startdb createdb migrateup migratedown dropdb sqlc test tour
+.PHONY: start startapp startdb createdb migrateup migratedown restartdb dropdb runcmd sqlc test get imagebuild imagerebuild tour server
