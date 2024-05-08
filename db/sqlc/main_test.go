@@ -12,14 +12,15 @@ var testQueries *Queries
 var testDB *sql.DB
 
 func TestMain(m *testing.M) {
-	var err error
+	config, err := LoadConfig("../..")
 	testDB, err = sql.Open(
-		os.Getenv("dbDriver"),
-		os.Getenv("dbSource"),
+		config.DBDriver,
+		config.DBSource,
 	)
 	if err != nil {
 		log.Fatal("Cannot connect to db:", err)
 	}
 	testQueries = New(testDB)
+
 	os.Exit(m.Run())
 }
