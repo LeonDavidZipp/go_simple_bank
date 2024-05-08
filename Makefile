@@ -61,6 +61,9 @@ get:
 server:
 	docker-compose run --rm app sh -c "go run main.go"
 
+mock:
+	docker-compose run --rm app sh -c "mockgen -destination db/mock/$(dest).go github.com/LeonDavidZipp/go_simple_bank/db/sqlc $(iname)"
+
 #############################################################################################################################################################################
 #																																											#
 #	The following commands are used to handle docker tasks																													#
