@@ -35,6 +35,7 @@ func (server *Server) createAccount(ctx *gin.Context) {
 			http.StatusInternalServerError,
 			errorResponse(err),
 		)
+		return
 	}
 
 	ctx.JSON(

@@ -16,7 +16,7 @@ RUN go mod download
 
 RUN go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 
-EXPOSE 8000
+EXPOSE 8080
 
 
 ########################################################################################
@@ -29,7 +29,7 @@ FROM base as dev
 
 ENV dbDriver="postgres"
 ENV dbSource="postgresql://exampleuser:test1234@db:5432/simple_bank?sslmode=disable"
-ENV serverAddress="0.0.0.0:8000"
+ENV serverAddress="127.0.0.1:8080"
 
 COPY ./sqlc.json ./
 

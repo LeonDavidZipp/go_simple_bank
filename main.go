@@ -4,7 +4,6 @@ import (
 	"os"
 	"log"
 	"database/sql"
-
 	_ "github.com/lib/pq"
 	"github.com/LeonDavidZipp/go_simple_bank/api"
 	db "github.com/LeonDavidZipp/go_simple_bank/db/sqlc"
