@@ -7,13 +7,20 @@ import (
 
 
 // server for serving http requests to our banking service
+// type Server struct {
+// 	store *db.Store
+// 	router *gin.Engine
+// }
+
+// testing: remove later
 type Server struct {
-	store *db.Store
+	store db.Store
 	router *gin.Engine
 }
 
 // creates new server instance
-func NewServer(store *db.Store) *Server {
+// func NewServer(store *db.Store) *Server {
+funct NewServer(store db.Store) *Server { // testing: remove later
 	server := &Server{
 		store : store,
 	}
