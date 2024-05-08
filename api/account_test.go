@@ -6,22 +6,15 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
+	"bytes"
+	"io"
+	"encoding/json"
 	gomock "go.uber.org/mock/gomock"
 	"github.com/stretchr/testify/require"
 	db "github.com/LeonDavidZipp/go_simple_bank/db/sqlc"
 	mockdb "github.com/LeonDavidZipp/go_simple_bank/db/mock"
 	"github.com/LeonDavidZipp/go_simple_bank/util"
 )
-
-func randomAccount() db.Account {
-	return db.Account {
-		ID: util.RandomInt(1, 1000),
-		Owner: util.RandomOwner(),
-		Balance: util.RandomBalance(),
-		Currency: util.RandomCurrency(),
-	}
-}
 
 func TestGetAccountAPI(t *testing.T) {
 	account := randomAccount()
@@ -44,4 +37,24 @@ func TestGetAccountAPI(t *testing.T) {
 
 	server.router.ServeHTTP(recorder, request)
 	require.Equal(t, http.StatusOK, recorder.Code)
+	requireBodyMatchAccount(t, recorder.Body, account)
+}
+
+func randomAccount() db.Account {
+	return db.Account {
+		ID: util.RandomInt(1, 1000),
+		Owner: util.RandomOwner(),
+		Balance: util.RandomBalance(),
+		Currency: util.RandomCurrency(),
+	}
+}
+
+func requireBodyMatchAccount(t *testing.T, body *bytes.Buffer, account db.Account) {
+	data, err := io.ReadAll(body)
+	require.NoError(t, err)
+
+	var gotAccount db.Account
+	err = json.Unmarshal(data, &gotAccount)
+	require.NoError(t, err)
+	require.Equal(t, account, gotAccount)
 }
