@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-type SQLStore interface {
+type Store interface {
 	Querier
 	TransferTx(ctx context.Context, arg TransferTxParams) (TransferTxResult, error)
 }
@@ -18,7 +18,7 @@ type SQLStore struct {
 }
 
 // NewStore creates a new Store struct
-func NewStore(db *sql.DB) *Store {
+func NewStore(db *sql.DB) *SQLStore {
 	return &SQLStore{
 		db : db,
 		Queries: New(db),

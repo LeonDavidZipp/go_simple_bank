@@ -20,7 +20,7 @@ type Server struct {
 
 // creates new server instance
 // func NewServer(store *db.Store) *Server {
-funct NewServer(store db.Store) *Server { // testing: remove later
+func NewServer(store db.Store) *Server { // testing: remove later
 	server := &Server{
 		store : store,
 	}
