@@ -32,7 +32,8 @@ FROM base as dev
 
 COPY ./sqlc.json ./
 
-RUN go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
+RUN go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest \
+    && go install go.uber.org/mock/mockgen@latest
 
 
 ########################################################################################
